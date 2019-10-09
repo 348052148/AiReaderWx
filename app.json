@@ -1,0 +1,35 @@
+{
+  "pages": [
+    "pages/bookshelf/bookshelf",
+    "pages/details/details",
+    "pages/reader/reader",
+    "pages/search/search",
+    "pages/help/help"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "免费小说阅读器",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#333",
+    "selectedColor": "#cb1c36",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "iconPath": "img/mybook.png",
+        "selectedIconPath": "img/selectedMybook.png",
+        "pagePath": "pages/bookshelf/bookshelf",
+        "text": "书架"
+      },
+      {
+        "iconPath": "img/search.png",
+        "selectedIconPath": "img/selectedSearch.png",
+        "pagePath": "pages/search/search",
+        "text": "搜索"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

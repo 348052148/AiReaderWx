@@ -1,0 +1,48 @@
+<!--pages/search/search.wxml-->
+<view class='searchContainer'>
+  <icon wx:if="{{!searchValue}}" class='searchIcon' type='search' color='#999' size='14'></icon>
+  <icon bindtap='clearInput' wx:else class='clearIcon' type='clear' color='#999' size='20'></icon>
+  <input type='text' value="{{searchValue}}" confirm-type='search' bindinput='searchInput' placeholder-class='placerStyle' bindconfirm='search' placeholder='输入书名或作者名'></input>
+  <view wx:if="{{!showSearchContent}}">
+
+    <view class='hotWord'>
+      <view class='hot_topic'>
+        <view class='hot_title'>大家都在搜</view>
+        <view bindtap='randomHotWord' class='hot_refresh'>换一换</view>
+      </view>
+      <view class='hotWordContent'>
+        <view bindtap='hotWordSearch' data-word='{{item}}' class='hotWord_item' style='background-color: {{hotWordBackgoundColor[index]}}' wx:for="{{showHotWords}}" wx:key="{{index}}">{{item}}</view>
+      </view>
+    </view>
+
+    <view class='historyWord'>
+      <view class='history_topic'>
+        <view class='history_title'>搜索历史</view>
+        <view bindtap='clearHistory' class='history_clear'>清空</view>
+      </view>
+      <view class='historyWordContent'>
+        <view bindtap='hotWordSearch' data-word='{{item}}' class='historyWord_item' wx:for="{{historyWords}}" wx:key="{{index}}">{{item}}</view>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view wx:if="{{showSearchContent}}" enable-back-to-top class='bookList' scroll-top="{{scrollTop}}"  scroll-y="true" style="height:{{winHeight}}rpx;overflow-anchor:true;" bindscrolltolower="loadmore">
+    <view wx:if="{{searchRes.list.length > 0}}">
+      <navigator hover-class="none" url='/pages/details/details?book_id={{book.book_id}}' class='book_item' wx:for="{{searchRes.list}}" wx:key="{{index}}" wx:for-item="book">
+      <image src='{{book.cover}}' lazy-load='true'></image>
+      <view class='book_info'>
+        <text class='book_title'>{{book.title}}</text>
+        <text class='book_site'>作者: {{book.author}}</text>
+        <text class='book_site'>来源： {{book.source}}</text>
+        <view class='book_desc'>{{book.detail}}</view>
+        <view class='book_follower'>{{book.classfiy}}</view>
+      </view>
+    </navigator>
+    </view>
+    <view wx:else>
+        没有书籍信息
+    </view>
+    
+
+  </scroll-view>
+</view>
