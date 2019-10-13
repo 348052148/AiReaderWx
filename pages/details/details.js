@@ -66,7 +66,7 @@ Page({
         wx.hideLoading();
         let score = 1;//Math.floor(res.data.rating.score / 2);
         this.setData({
-          bookInfo: res.data.info,
+          bookInfo: res.data,
           book_rate: score
         });
       }

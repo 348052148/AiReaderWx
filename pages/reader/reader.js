@@ -244,7 +244,7 @@ Page({
       url: api.book.bookChapters(source_id),
       success: res => {
         this.setData({
-          bookChapters: res.data.list
+          bookChapters: res.data
         });
         this.getChapterContent(this.data.bookChapters[this.data.indexPage].chapter_id);
       }
@@ -264,7 +264,7 @@ Page({
         this.setData({
           showPage: true,
           showChapter: false,  //关闭目录
-          indexChapterContent: res.data.contents
+          indexChapterContent: res.data
         });
         //存储当前读到哪一章
         // wx.getStorage({

@@ -16,5 +16,13 @@ module.exports = {
     bookChapters:function(book_id) {
       return 'http://127.0.0.1:8000/api/book/' + book_id +'/chapters';
     }
+  },
+  wechat: {
+    login : function(code) {
+      return 'http://127.0.0.1:8000/api/wechat/login/'+code
+    },
+    register: function() {
+      return 'http://127.0.0.1:8000/api/wechat/register'
+    }
   }
 }

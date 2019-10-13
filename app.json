@@ -4,7 +4,8 @@
     "pages/details/details",
     "pages/reader/reader",
     "pages/search/search",
-    "pages/help/help"
+    "pages/help/help",
+    "pages/auth/auth"
   ],
   "window": {
     "backgroundTextStyle": "light",
