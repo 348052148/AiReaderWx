@@ -1,0 +1,100 @@
+/* pages/home/home.wxss */
+
+.searchContainer {
+  padding-top: 5rpx;
+  position: relative;
+  background: #fff;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 32rpx;
+  left: 25rpx;
+  z-index: 20;
+}
+
+.searchContainer input {
+  background: #efefef;
+  text-indent: 50px;
+  color: #333;
+  font-size: 18px;
+  height: 80rpx;
+  line-height: 80rpx;
+  outline: none;
+  border-radius: 25rpx;
+  width: 98%;
+  margin: 0 auto;
+}
+
+.placerStyle {
+  color: #999;
+  font: 14px;
+}
+
+/*导航*/
+.bannar{
+  background: #fff;
+}
+
+/*热门容器*/
+.hotContainer {
+  display: block;
+  margin-top: 12rpx;
+  background: #fff;
+
+}
+.hotContainer .hotHead {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  display: block;
+}
+.hotContainer .hotHead .hotTitle {
+  margin-left: 2rpx;
+  text-indent: 20rpx;
+  font-weight: bold;
+  float: left;
+}
+.hotContainer .hotHead .hotMore {
+  padding-right: 20rpx;
+  color: #cb1c36;
+  font-size: 32rpx;
+  font-family:fantasy;
+  float: right;
+}
+
+/*书籍容器*/
+.hotContainer .bookContainer {
+  display: block;
+  /* justify-content: center; */
+  /* text-align: center; */
+
+}
+/*书籍样式*/
+.hotContainer .bookBox {
+  display: inline-block;
+  width: 190rpx;
+  padding: 18rpx;
+  vertical-align: top;
+  margin-left: 20rpx
+}
+
+.hotContainer .bookBox image {
+  width: 190rpx;
+  height: 275rpx;
+}
+.hotContainer .bookBox text {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 30rpx;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  display:-webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.home {
+  background: #eee;
+}

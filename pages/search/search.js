@@ -29,7 +29,10 @@ Page({
     keyword:'',
 
     //分页
-    pageload:false
+    pageload:false,
+
+    //焦点
+    foucsflag:false
   },
 
   //获取热搜关键词
@@ -191,6 +194,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.foucsflag = true
     //  高度自适应
     wx.getSystemInfo({
       success: (res) => {
@@ -199,7 +203,6 @@ Page({
           rpxR = 750 / clientWidth;
         var calc = clientHeight * rpxR - 140;
         this.setData({
-          STATIC_HOST: api.STATIC_HOST,
           winHeight: calc
         });
       }

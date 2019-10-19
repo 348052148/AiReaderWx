@@ -1,28 +1,39 @@
-
+let apiHost = 'http://127.0.0.1:8000/';
 module.exports = {
+  home: {
+    hotBooks: function() {
+      return apiHost + 'api/hot/books'
+    },
+    recommendBooks: function() {
+      return apiHost + 'api/recommend/books'
+    }
+  },
   book: {
+    bookMixedSearch: function(attr, page) {
+      return apiHost + 'api/book/search?attr=' + attr + '&page=' + page
+    },
     bookSearch: function (indexWord, page) {
-      return 'http://127.0.0.1:8000/api/search?keyword=' + indexWord + '&page=' + page
+      return apiHost+'api/search?keyword=' + indexWord + '&page=' + page
     },
     bookInfo:function(bookid){
-      return 'http://127.0.0.1:8000/api/book/' + bookid
+      return apiHost +'api/book/' + bookid
     },
     bookSources:function(bookid) {
-      return 'http://127.0.0.1:8000/api/book/catalogs/contents?url=' + bookid;
+      return apiHost+'api/book/catalogs/contents?url=' + bookid;
     },
     chapterContent: function (chapter_id) {
-      return 'http://127.0.0.1:8000/api/chapter/' + chapter_id +'/contents';
+      return apiHost+'api/chapter/' + chapter_id +'/contents';
     },
     bookChapters:function(book_id) {
-      return 'http://127.0.0.1:8000/api/book/' + book_id +'/chapters';
+      return apiHost+'api/book/' + book_id +'/chapters';
     }
   },
   wechat: {
     login : function(code) {
-      return 'http://127.0.0.1:8000/api/wechat/login/'+code
+      return apiHost+'api/wechat/login/'+code
     },
     register: function() {
-      return 'http://127.0.0.1:8000/api/wechat/register'
+      return apiHost+'api/wechat/register'
     }
   }
 }

@@ -1,0 +1,20 @@
+<!--pages/list/list.wxml-->
+<scroll-view enable-back-to-top class='bookList' scroll-top="{{scrollTop}}"  scroll-y="true" style="height:{{winHeight}}rpx;overflow-anchor:true;" bindscrolltolower="loadmore">
+
+    <view wx:if="{{bookList.length > 0}}">
+      <navigator hover-class="none" url='/pages/details/details?book_id={{book.book_id}}' class='book_item' wx:for="{{bookList}}" wx:key="{{index}}" wx:for-item="book">
+        <image src='{{book.cover}}' lazy-load='true'></image>
+        <view class='book_info'>
+          <text class='book_title'>{{book.title}}</text>
+          <text class='book_site'>作者: {{book.author}}</text>
+          <text class='book_site'>来源： {{book.source}}</text>
+          <view class='book_desc'>{{book.detail}}</view>
+          <view class='book_follower'>{{book.classfiy}}</view>
+        </view>
+      </navigator>
+    </view>
+    <view wx:else>
+        没有书籍信息
+    </view>
+
+</scroll-view>

@@ -1,0 +1,52 @@
+<!--pages/home/home.wxml-->
+<view class="home">
+<view class='searchContainer'>
+<icon wx:if="{{!searchValue}}" class='searchIcon' type='search' color='#999' size='14'></icon>
+ <input type='text' value="{{searchValue}}" confirm-type='search'  bindtap='hitInput' placeholder-class='placerStyle' bindconfirm='search' placeholder='全网书籍搜索' disabled="true"></input>
+ </view>
+
+<swiper class="bannar" indicator-dots="{{bannarInfo.indicatorDots}}"
+  autoplay="{{bannarInfo.autoplay}}" interval="{{bannarInfo.interval}}" duration="{{bannarInfo.duration}}">
+  <block wx:for="{{bannarInfo.imgUrls}}">
+    <swiper-item>
+      <image src="{{item}}" class="slide-image"  height="150"/>
+    </swiper-item>
+  </block>
+</swiper>
+
+  <!-- 热门模块 -->
+  <view class="hotContainer">
+    <view class="hotHead">
+      <label class="hotTitle">热门</label><navigator  url="/pages/list/list"  class="hotMore" >查看更多</navigator>
+    </view>
+
+    <view class="bookContainer">
+
+      <navigator class="bookBox" url='/pages/details/details?book_id={{book.book_id}}'  wx:for="{{hotBookList}}" wx:key="{{index}}" wx:for-item="book" >
+          <image src="{{book.cover}}"></image>
+          <text>{{book.title}}</text>
+      </navigator>
+
+    </view>
+  </view>
+
+    <!--推荐 http://img.quanshuwang.com/image/144/144900/144900s.jpg-->
+  <view class="hotContainer">
+    <view class="hotHead">
+      <label class="hotTitle">推荐</label><navigator url="/pages/list/list" class="hotMore" >查看更多</navigator>
+    </view>
+
+    <view class="bookContainer">
+      <navigator class="bookBox" url='/pages/details/details?book_id={{book.book_id}}'  wx:for="{{recommendBookList}}" wx:key="{{index}}" wx:for-item="book" >
+          <image src="{{book.cover}}"></image>
+          <text>{{book.title}}</text>
+      </navigator>
+    </view>
+    
+  </view>
+
+
+</view>
+
+
+ 
