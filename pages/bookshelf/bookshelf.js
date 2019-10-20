@@ -45,7 +45,6 @@ Page({
     wx.getStorage({
       key: 'bookShelfData',
       success: (res) => {
-        console.log(res.data)
         this.setData({
           bookShelfData: res.data
         });
@@ -55,15 +54,7 @@ Page({
     
   },
   onLoad: function () {
-    /*wx.getUserInfo({
-      success: res => {
-        app.globalData.userInfo = res.userInfo
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    });*/
+    
   },
   onShow: function () {
     wx.showLoading({

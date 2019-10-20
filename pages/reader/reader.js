@@ -227,19 +227,6 @@ Page({
 
   //获取书的章节
   getBookChapters: function (source_id) {
-    // this.setData({
-    //   bookChapters: [
-    //     {
-    //       title: '第1章 少侠好胆色',
-    //       url: 'http://www.quanshuwang.com/book/179/179443/53199637.html'
-    //     },
-    //     {
-    //       title: '第2章 我很欣慰',
-    //       url: 'http://www.quanshuwang.com/book/179/179443/53199638.html'
-    //     }
-    //   ]
-    // })
-    // this.getChapterContent(this.data.bookChapters[this.data.indexPage].url);
     wx.request({
       url: api.book.bookChapters(source_id),
       success: res => {
@@ -252,13 +239,13 @@ Page({
   },
 
   //获取章节内容
-  getChapterContent: function (link) {
+  getChapterContent: function (chapterId) {
     wx.showLoading({
       title: '加载中',
       mask: true
     })
     wx.request({
-      url: api.book.chapterContent(link),
+      url: api.book.chapterContent(chapterId),
       success: res => {
         wx.hideLoading();
         this.setData({
@@ -266,23 +253,24 @@ Page({
           showChapter: false,  //关闭目录
           indexChapterContent: res.data
         });
+        console.log('获取数据'+this.data.indexPage)
         //存储当前读到哪一章
-        // wx.getStorage({
-        //   key: 'bookShelfData',
-        //   success: res => {
-        //     let data = res.data;
-        //     for (let i = 0; i < data.length; i++) {
-        //       if (this.data.book_id === data[i].bookInfo.id) {
-        //         data[i].readNum = this.data.indexPage + 1;
-        //         data[i].laterScrollTop = this.data.scrollTop
-        //         wx.setStorage({
-        //           key: 'bookShelfData',
-        //           data: data,
-        //         })
-        //       }
-        //     }
-        //   },
-        // });
+        wx.getStorage({
+          key: 'bookShelfData',
+          success: res => {
+            let data = res.data;
+            for (let i = 0; i < data.length; i++) {
+              if (this.data.book_id === data[i].bookInfo.id) {
+                data[i].readNum = this.data.indexPage + 1;
+                data[i].laterScrollTop = this.data.scrollTop
+                wx.setStorage({
+                  key: 'bookShelfData',
+                  data: data,
+                })
+              }
+            }
+          },
+        });
         //使用Wxparse格式化小说内容   对收费的显示文字   后期换接口处理
         WxParse.wxParse('article', 'html', !this.data.indexChapterContent ? '小轻还没有给主人搬到此书，去看看别的吧' : this.data.indexChapterContent, this);
 
@@ -302,9 +290,21 @@ Page({
       book_id: options.book_id
     });
 
-    wx.setNavigationBarTitle({   //设置标题
+    //设置标题
+    wx.setNavigationBarTitle({
       title: options.book_title,
     });
+
+    //获取读取章节和内容
+    let shlfBooks = wx.getStorageSync('bookShelfData');
+    for (let i = 0; i < shlfBooks.length; i++) {
+      if (this.data.book_id === shlfBooks[i].bookInfo.id) {
+        this.setData({
+          indexPage: shlfBooks[i].readNum - 1,
+          scrollTop: shlfBooks[i].laterScrollTop
+        });
+      }
+    }
 
     //获取系统高度
     wx.getSystemInfo({

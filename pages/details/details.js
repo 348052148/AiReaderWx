@@ -30,19 +30,21 @@ Page({
     if (this.data.addedShelf) {
       return
     }
+    
+    let shelfData = {
+      bookInfo: {
+        id: this.data.bookInfo.book_id,
+        title: this.data.bookInfo.title,
+        cover: this.data.bookInfo.cover,
+      },
+      readNum: 1,
+      laterScrollTop: 0 //上次滑动的距离
+    };
 
     wx.getStorage({
       key: 'bookShelfData',
       success: res => {
-        let shelfData = {
-          bookInfo: {
-            id: this.data.bookInfo.book_id,
-            title: this.data.bookInfo.title,
-            cover: this.data.bookInfo.cover,
-          },
-          readNum: 1,
-          laterScrollTop: 0 //上次滑动的距离
-        };
+        console.log(shelfData)
         //添加
         res.data.unshift(shelfData);
         wx.setStorage({
@@ -53,6 +55,16 @@ Page({
         this.setData({
           addedShelf: true
         });
+      },
+      fail: res => {
+        wx.setStorage({
+          key: 'bookShelfData',
+          data: [shelfData],
+        });
+        this.setData({
+          addedShelf: true
+        });
+        
       }
     })
   

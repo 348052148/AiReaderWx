@@ -8,9 +8,9 @@ Page({
   data: {
     bannarInfo: {
       imgUrls: [
-        'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
-        'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640',
-        'https://images.unsplash.com/photo-1551446591-142875a901a1?w=640'
+        'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=1200',
+        'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=1200',
+        'https://images.unsplash.com/photo-1551446591-142875a901a1?w=1200'
       ],
       indicatorDots: false,
       autoplay: false,
@@ -34,7 +34,6 @@ Page({
     wx.request({
       url: api.home.hotBooks(),
       success: res => {
-        console.log(this.hotBookList)
         this.setData({
           hotBookList: res.data
         });
@@ -104,7 +103,6 @@ Page({
   },
 
   hitInput: function() {
-    console.log("搜索")
     wx.switchTab({
       url: '/pages/search/search',
     })
