@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    STATIC_HOST:api.assetHost,
     winHeight: "",//窗口高度
     scrollTop: 0,
     //热搜关键词
@@ -118,16 +119,20 @@ Page({
         url: api.book.bookSearch(this.data.keyword, this.data.page + 1),
         success: res => {
           
-          let books = this.data.searchRes
-          for (let i = 0; i < res.data.list.length; i++) {
-            books.list.push(res.data.list[i])
+          if (res.data.list.length > 0) {
+            let books = this.data.searchRes
+            for (let i = 0; i < res.data.list.length; i++) {
+              books.list.push(res.data.list[i])
+            }
+            this.setData({
+              showSearchContent: true,
+              searchRes: books,
+              page: this.data.page + 1,
+            });
+            wx.hideLoading();
           }
-          console.log(books)
           this.setData({
-            showSearchContent: true,
-            searchRes: books,
-            pageload:false,
-            page: this.data.page + 1,
+            pageload: false,
           });
           wx.hideLoading();
         }

@@ -35,6 +35,9 @@
 .bannar{
   background: #fff;
 }
+.slide-image {
+  display: inline;
+}
 
 /*热门容器*/
 .hotContainer {
@@ -82,6 +85,8 @@
 .hotContainer .bookBox image {
   width: 190rpx;
   height: 275rpx;
+  box-shadow: 0 2px 5px 0 #888;
+
 }
 .hotContainer .bookBox text {
   display: block;

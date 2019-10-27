@@ -6,9 +6,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    STATIC_HOST: api.assetHost,
     bannarInfo: {
-      imgUrls: [
-        'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=1200',
+      list: [
+        'https://sta-op.douyucdn.cn/nggsys/2019/10/16/e5e1d8fdac31df37f638d678903410be.jpg',
         'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=1200',
         'https://images.unsplash.com/photo-1551446591-142875a901a1?w=1200'
       ],
@@ -31,6 +32,19 @@ Page({
     wx.showLoading({
       title: '加载中..',
     })
+    //bannar
+    wx.request({
+      url: api.home.banarList(),
+      success: res => {
+        let bannarInfo = this.data.bannarInfo;
+        bannarInfo.list = res.data;
+        this.setData({
+          bannarInfo: bannarInfo
+        });
+        wx.hideLoading();
+      }
+    })
+    //hot
     wx.request({
       url: api.home.hotBooks(),
       success: res => {

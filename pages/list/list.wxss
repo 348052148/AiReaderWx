@@ -21,6 +21,8 @@
   position: absolute;
   left: 0;
   top: 30rpx;
+  box-shadow: 0 2px 5px 0 #888;
+
 }
 
 .book_info {

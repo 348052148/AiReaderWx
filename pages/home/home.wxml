@@ -7,10 +7,12 @@
 
 <swiper class="bannar" indicator-dots="{{bannarInfo.indicatorDots}}"
   autoplay="{{bannarInfo.autoplay}}" interval="{{bannarInfo.interval}}" duration="{{bannarInfo.duration}}">
-  <block wx:for="{{bannarInfo.imgUrls}}" wx:key="index" >
+  <block wx:for="{{bannarInfo.list}}" wx:key="index" >
+  <navigator url="/pages/list/list">
     <swiper-item>
-      <image src="{{item}}" class="slide-image"  height="150"/>
+      <image src="{{item.img}}" class="slide-image" />
     </swiper-item>
+  </navigator>
   </block>
 </swiper>
 

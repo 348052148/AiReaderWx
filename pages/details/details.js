@@ -16,7 +16,8 @@ Page({
     showRecommendBooks: [], //随机展示的三本推荐书籍
     shortReviews: {},
     //加入书籍防重复标志
-    addedShelf: false
+    addedShelf: false,
+    STATIC_HOST: api.assetHost,
   },
 
   showTab: function (event) {
@@ -75,12 +76,18 @@ Page({
     wx.request({
       url: api.book.bookInfo(book_id),
       success: res => {
+        if (res.statusCode == 200) {
+          let score = 1;//Math.floor(res.data.rating.score / 2);
+          this.setData({
+            bookInfo: res.data,
+            book_rate: score
+          });
+        } else {
+          wx.showToast({
+            title: "书籍不存在",
+          })
+        }
         wx.hideLoading();
-        let score = 1;//Math.floor(res.data.rating.score / 2);
-        this.setData({
-          bookInfo: res.data,
-          book_rate: score
-        });
       }
     })
   },

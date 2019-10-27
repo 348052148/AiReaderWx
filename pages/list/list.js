@@ -14,6 +14,8 @@ Page({
 
       //分页
       pageload: false,
+
+      STATIC_HOST: api.assetHost
   },
 
   loadmore: function () {
@@ -30,15 +32,19 @@ Page({
       wx.request({
         url: api.book.bookMixedSearch('hot', this.data.page),
         success: res => {
-          let books = this.data.bookList;
-          for (let i = 0; i < res.data.list.length; i++) {
-            books.push(res.data.list[i])
+          if (!res.data.list.length) {
+            let books = this.data.bookList;
+            for (let i = 0; i < res.data.list.length; i++) {
+              books.push(res.data.list[i])
+            }
+            this.setData({
+              bookList: books,
+              page: this.data.page + 1
+            }); 
+          
           }
-          this.setData({
-            bookList: books,
-            page: this.data.page + 1,
-            pageload: false
-          });
+
+          this.setData({ pageload: false});
 
           wx.hideLoading();
         }
@@ -64,10 +70,13 @@ Page({
         });
       }
     });
-
+    wx.showLoading({
+      title: '加载中..',
+    })
     wx.request({
       url: api.book.bookMixedSearch('hot', this.data.page),
       success: res => {
+        wx.hideLoading();
         let books = this.data.bookList;
         for (let i = 0; i < res.data.list.length; i++) {
           books.push(res.data.list[i])

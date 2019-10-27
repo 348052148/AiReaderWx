@@ -227,9 +227,14 @@ Page({
 
   //获取书的章节
   getBookChapters: function (source_id) {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
     wx.request({
       url: api.book.bookChapters(source_id),
       success: res => {
+        wx.hideLoading();
         this.setData({
           bookChapters: res.data
         });

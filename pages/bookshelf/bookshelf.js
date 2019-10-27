@@ -11,7 +11,8 @@ Page({
     //是否有更新
     hasUpdate: [],
     //是否编辑
-    isEdit: false
+    isEdit: false,
+    STATIC_HOST:api.assetHost,
   },
 
   //开启编辑模式
