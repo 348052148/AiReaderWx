@@ -7,11 +7,13 @@
     "pages/search/search",
     "pages/help/help",
     "pages/auth/auth",
-    "pages/list/list"
+    "pages/list/list",
+    "pages/user/user",
+    "pages/catalogs/catalogs"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#C30BAA",
+    "navigationBarBackgroundColor": "#cb1c36",
     "navigationBarTitleText": "免费小说阅读器",
     "navigationBarTextStyle": "black"
   },
@@ -35,7 +37,7 @@
       {
         "iconPath": "img/search.png",
         "selectedIconPath": "img/selectedSearch.png",
-        "pagePath": "pages/search/search",
+        "pagePath": "pages/user/user",
         "text": "搜索"
       }
     ]

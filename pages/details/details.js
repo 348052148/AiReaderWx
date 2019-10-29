@@ -97,13 +97,14 @@ Page({
       url: api.book.relatedRecommendedBooks(book_id),
       success: res => {
         this.setData({
-          allRecommendBooks: res.data.books
+          allRecommendBooks: res.data
         });
         this.randomRecommendBooks();
       }
     })
   },
 
+  //随机推荐书籍
   randomRecommendBooks: function () {  //在所有推荐书籍中随机选出三本展示
     this.setData({
       showRecommendBooks: []
@@ -124,6 +125,7 @@ Page({
     });
   },
 
+  //评论
   getBookShortReviews(book_id) {
     wx.request({
       url: api.comment.shortReviews(book_id),
@@ -158,7 +160,7 @@ Page({
       },
     });
     this.getBookInfo(options.book_id);
-    //this.getRelatedRecommendedBooks(options.book_id);
+    this.getRelatedRecommendedBooks(options.book_id);
     //this.getBookShortReviews(options.book_id);
   },
 

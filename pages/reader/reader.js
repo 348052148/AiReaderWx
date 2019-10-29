@@ -258,7 +258,7 @@ Page({
           showChapter: false,  //关闭目录
           indexChapterContent: res.data
         });
-        console.log('获取数据'+this.data.indexPage)
+        
         //存储当前读到哪一章
         wx.getStorage({
           key: 'bookShelfData',

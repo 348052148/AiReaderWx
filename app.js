@@ -3,9 +3,7 @@ const api = require('./utils/api.js')
 App({
   onLaunch: function () {
     // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+    var loginInfo = wx.getStorageSync('loginInfo') || []
 
     // 登录
     wx.login({
@@ -14,6 +12,9 @@ App({
         wx.request({
           url: api.wechat.login(res.code),
           success: res => {
+            //设置用户信息
+            wx.setStorageSync('loginInfo', res.data)
+
             var openid = res.data.openid
             if (res.statusCode == 404) {
               // 获取用户信息
@@ -50,14 +51,6 @@ App({
                       }
                     })
                   } else {
-                    // console.log("授权")
-                    // wx.authorize({
-                    //   scope: 'scope.address',
-                    //   success: () => {
-                    //       console.log("AUTH01")
-
-                    //   }
-                    // })
                     //跳转授权
                     wx.navigateTo({
                       url: '/pages/auth/auth?openid=' + openid,

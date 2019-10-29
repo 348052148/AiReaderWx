@@ -1,0 +1,33 @@
+/* pages/user/user.wxss */
+
+.userCenter {
+  background: #ededed;
+  display: block;
+}
+.userInfo {
+  background: #fff;
+  display: flex;
+  padding-top: 50rpx;
+  padding-left: 40rpx;
+  padding-bottom: 20rpx;
+  height: 180rpx;
+}
+
+.userInfo image {
+  width: 150rpx;
+  height: 150rpx;
+  border-radius:100rpx 100rpx;
+  box-shadow: 0 2px 5px 0 #888;
+}
+
+.userInfo text {
+  text-align: center;
+  line-height: 150rpx;
+  margin-left: 20rpx;
+  text-indent: 30rpx;
+  font-weight: bold;
+}
+
+.userMenu {
+  margin-top: 10rpx;
+}

@@ -1,0 +1,12 @@
+<!--pages/catalogs/catalogs.wxml-->
+<view class="reader">
+<!--目录-->
+  <scroll-view  class='chapterContainer' style="height:{{winHeight}}rpx" scroll-y='true'>
+    <view class='chapter_topic'>
+      <view class='chapter_topic_title'>目录</view>
+    </view>
+    <navigator url="/pages/reader/reader?book_id={{book_id}}">
+        <view  data-link="{{item.chapter_id}}" data-indexpage="{{index}}" class='chapter_item' wx:key="{{index}}" wx:for="{{chapterList}}">{{item.title}}</view> 
+    </navigator>
+  </scroll-view>
+</view>

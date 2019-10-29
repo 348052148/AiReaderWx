@@ -43,6 +43,10 @@ Page({
 
   //获取书架
   getShelfInfo: function () {
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    });
     wx.getStorage({
       key: 'bookShelfData',
       success: (res) => {
@@ -55,13 +59,8 @@ Page({
     
   },
   onLoad: function () {
-    
   },
   onShow: function () {
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    });
     this.setData({
       hasUpdate: []
     });

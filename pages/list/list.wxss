@@ -5,7 +5,7 @@
   background: #fff;
   position: relative;
   padding: 0 30rpx;
-  width: 92%;
+  width: 100%;
   top: 40rpx;
 }
 
@@ -27,7 +27,7 @@
 
 .book_info {
   position: absolute;
-  right: 0;
+  right: 50rpx;
   top: 30rpx;
   width: 475rpx;
 }

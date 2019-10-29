@@ -32,7 +32,7 @@ Page({
       wx.request({
         url: api.book.bookMixedSearch('hot', this.data.page),
         success: res => {
-          if (!res.data.list.length) {
+          if (res.data.list.length > 0) {
             let books = this.data.bookList;
             for (let i = 0; i < res.data.list.length; i++) {
               books.push(res.data.list[i])
@@ -41,12 +41,15 @@ Page({
               bookList: books,
               page: this.data.page + 1
             }); 
-          
+            wx.hideLoading();
+          } else {
+            wx.hideLoading();
+            wx.showToast({
+              title: '没有更多书籍了',
+              duration: 1500
+            })
           }
-
           this.setData({ pageload: false});
-
-          wx.hideLoading();
         }
 
       })

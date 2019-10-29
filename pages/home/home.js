@@ -117,8 +117,8 @@ Page({
   },
 
   hitInput: function() {
-    wx.switchTab({
+    wx.navigateTo({
       url: '/pages/search/search',
-    })
+    });
   }
 })

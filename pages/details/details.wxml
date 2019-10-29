@@ -17,8 +17,8 @@
     <!-- <view class='rate'>
       <view wx:key="{{index}}" class="rate_item {{book_rate >= item ? 'rate_active' : ''}}" wx:for="{{[1,2,3,4,5]}}">★</view>
     </view> -->
-    <view class='lastChapter' wx:if="bookInfo.status=='连载''" >更新至
-      <text>{{bookInfo.lastChapter}}</text>
+    <view class='lastChapter' wx:if="bookInfo.status=='连载''" >更新至 
+      <text>{{bookInfo.chapter_count}}</text> 章
     </view>
     <view class='info_commit'>
       <view bindtap='showTab' class='tab'>
@@ -30,23 +30,27 @@
         <view class='info_desc'>
           简介： {{bookInfo.detail}}
         </view>
+
+        <!--目录-->
+      <navigator url='/pages/catalogs/catalogs?book_id={{bookInfo.book_id}}' >
         <view class='openChapter'>
-          <image src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACHElEQVR4Xu1awW0CMRDcNYJvoAPSAR2EDkgHuQe2+IUOkg7CE9lIHB1AB0kH6SB0EPJFgo1O4gF3B7YUabXR7X1tecczs37MLULDP2z4/UEJUAc0nAFtgYYbQB9BbYFyC1hrMwB4SmiNVQghv7Yvy7Jup9NZElE34SyuLRXMFQc45ygVzX6/7+V5vqvb75x7BYCX1LO49nnvL+5cR0BxobsEQD/e+6vqOuemAPCWcA7nlgrmCgHW2gEiPsZQEdE6hPB5a1/RTojYj53FtW6Myefz+fa8nj6CXOxLraMOkKoMFy51ABfTUuuoA6Qqw4VLHcDFtNQ66gCpynDhUgdwMS21jjpAqjJcuNQBZabH4/HQGPMQU+B4PH4sFov3SCL0jIhiQlFjzCqaCFlrv1NAE9EuhNC7RoDETJCINiGEi7ivUaFoEgFFCyBikejesu4OEXPv/fqaA07/BaZENIy1E8c6Im6JaFYOcvUR5GBfcg11gGR1OLCpAzhYllxDHSBZHQ5s6gAOliXXUAdIVocDmzqAg2XJNdQBktXhwKYOKLM8mUz6h8NhFMsF6wLGmoB1ZIwZcCgZq1FkmK1WaxMNRZ1zXwAQne2LhaKnGcFlDBjz+tZ7f39e80+jsuWx0/OD//OobBFkRidFEXHtvZ/dCkXb7XYxTC3mvwAA5OUBb30EmXtQXDl1gDhJmAGpA5gJF1dOHSBOEmZAjXfAL/nCn0HN4Hn4AAAAAElFTkSuQmCC'></image> 总目录(350章)</view>
+          <image src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACHElEQVR4Xu1awW0CMRDcNYJvoAPSAR2EDkgHuQe2+IUOkg7CE9lIHB1AB0kH6SB0EPJFgo1O4gF3B7YUabXR7X1tecczs37MLULDP2z4/UEJUAc0nAFtgYYbQB9BbYFyC1hrMwB4SmiNVQghv7Yvy7Jup9NZElE34SyuLRXMFQc45ygVzX6/7+V5vqvb75x7BYCX1LO49nnvL+5cR0BxobsEQD/e+6vqOuemAPCWcA7nlgrmCgHW2gEiPsZQEdE6hPB5a1/RTojYj53FtW6Myefz+fa8nj6CXOxLraMOkKoMFy51ABfTUuuoA6Qqw4VLHcDFtNQ66gCpynDhUgdwMS21jjpAqjJcuNQBZabH4/HQGPMQU+B4PH4sFov3SCL0jIhiQlFjzCqaCFlrv1NAE9EuhNC7RoDETJCINiGEi7ivUaFoEgFFCyBikejesu4OEXPv/fqaA07/BaZENIy1E8c6Im6JaFYOcvUR5GBfcg11gGR1OLCpAzhYllxDHSBZHQ5s6gAOliXXUAdIVocDmzqAg2XJNdQBktXhwKYOKLM8mUz6h8NhFMsF6wLGmoB1ZIwZcCgZq1FkmK1WaxMNRZ1zXwAQne2LhaKnGcFlDBjz+tZ7f39e80+jsuWx0/OD//OobBFkRidFEXHtvZ/dCkXb7XYxTC3mvwAA5OUBb30EmXtQXDl1gDhJmAGpA5gJF1dOHSBOEmZAjXfAL/nCn0HN4Hn4AAAAAElFTkSuQmCC'></image> 总目录({{bookInfo.chapter_count}}章)</view>
+        </navigator>
+
 
         <!-- 推荐 -->
-        <!-- <view class='Recommend'>
+        <view class='Recommend'>
           <view class='re_topic'>
             <view class='re_title'>看过这本书的人还在看</view>
             <view bindtap='randomRecommendBooks' class='re_refresh'>换一换</view>
           </view>
           <view class='re_books'>
             <navigator wx:key="{{index}}" hover-class="none" class='re_bookItem' wx:for="{{showRecommendBooks}}" url='/pages/details/details?book_id={{item._id}}'>
-              <image src="{{STATIC_HOST}}{{item.cover}}"></image>
+              <image src="{{STATIC_HOST}}book/image/{{item.book_id}}.jpeg"></image>
               <view class='re_bookTitle'>{{item.title}}</view>
             </navigator>
           </view>
-        </view> -->
-
+        </view>
 
       </scroll-view>
       <!-- 评价-->
@@ -60,8 +64,6 @@
         </view> -->
         <text>此功能暂未开发</text>
       </scroll-view>
-
-
     </view>
   </view>
 </view>

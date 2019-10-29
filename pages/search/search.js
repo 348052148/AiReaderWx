@@ -130,11 +130,16 @@ Page({
               page: this.data.page + 1,
             });
             wx.hideLoading();
+          }else {
+            wx.hideLoading();
+            wx.showToast({
+              title: '没有更多书籍了',
+              duration: 1500
+            })
           }
           this.setData({
             pageload: false,
           });
-          wx.hideLoading();
         }
       })
     }
