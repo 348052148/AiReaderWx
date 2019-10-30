@@ -33,7 +33,10 @@ Page({
     pageload:false,
 
     //焦点
-    foucsflag:false
+    foucsflag:false,
+
+    //issearch
+    isLoad: false,
   },
 
   //获取热搜关键词
@@ -78,7 +81,8 @@ Page({
   hotWordSearch: function (event) {  //点击热词搜索
     this.setData({
       searchValue: event.target.dataset.word,
-      page: 1
+      page: 1,
+      pageload: false
     });
     this.search(event.target.dataset.word);
   },
@@ -100,7 +104,8 @@ Page({
   clearInput: function () { //清空搜索栏关闭搜索容器
     this.setData({
       searchValue: '',
-      showSearchContent: false
+      showSearchContent: false,
+      pageload: false
     });
   },
 
@@ -108,11 +113,8 @@ Page({
     if (this.data.pageload == false) {
       this.setData({
         pageload: true,
+        isLoad: true,
       })
-      wx.showLoading({
-        title: '加载中',
-        mask: true
-      });
 
       //接口搜索
       wx.request({
@@ -128,18 +130,15 @@ Page({
               showSearchContent: true,
               searchRes: books,
               page: this.data.page + 1,
+              pageload: false,
+              isLoad:false,
             });
-            wx.hideLoading();
           }else {
-            wx.hideLoading();
-            wx.showToast({
-              title: '没有更多书籍了',
-              duration: 1500
-            })
+            this.setData({
+              isLoad: false,
+            });
+            //到底了
           }
-          this.setData({
-            pageload: false,
-          });
         }
       })
     }
@@ -147,12 +146,10 @@ Page({
 
   //搜索书籍
   search: function (word) {
-    wx.showLoading({
-      title: '搜索中',
-      mask: true
-    });
+    this.setData({
+      isLoad:true,
+    })
     let indexWord = word.detail ? word.detail.value : word;
-
     //历史搜索
     wx.getStorage({
       key: 'searchHistory',
@@ -183,9 +180,10 @@ Page({
           searchRes: res.data,
           scrollTop: 0,
           page:this.data.page,
-          keyword: indexWord
+          keyword: indexWord,
+          isLoad: false,
         });
-        wx.hideLoading();
+
       }
     })
   },
@@ -205,18 +203,14 @@ Page({
    */
   onLoad: function (options) {
     this.foucsflag = true
-    //  高度自适应
-    wx.getSystemInfo({
-      success: (res) => {
-        var clientHeight = res.windowHeight,
-          clientWidth = res.windowWidth,
-          rpxR = 750 / clientWidth;
-        var calc = clientHeight * rpxR - 140;
-        this.setData({
-          winHeight: calc
-        });
-      }
-    });
+
+    //设置系统信息
+    let systemInfo = wx.getStorageSync('systemInfo');
+    this.setData({
+      clientHeight: systemInfo.clientHeight,
+      clientWidth: systemInfo.clientWidth,
+      winHeight: systemInfo.winHeight
+    })
 
     wx.getStorage({
       key: 'searchHistory',

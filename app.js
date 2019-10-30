@@ -2,6 +2,23 @@
 const api = require('./utils/api.js')
 App({
   onLaunch: function () {
+
+    //获取系统高度
+    wx.getSystemInfo({
+      success: (res) => {
+        var clientHeight = res.windowHeight,
+          clientWidth = res.windowWidth,
+          rpxR = 750 / clientWidth;
+        var calc = clientHeight * rpxR;
+
+        wx.setStorageSync('systemInfo', {
+          clientHeight: clientHeight,
+          clientWidth: clientWidth,
+          winHeight: calc
+        })
+      }
+    });
+
     // 展示本地存储能力
     var loginInfo = wx.getStorageSync('loginInfo') || []
 

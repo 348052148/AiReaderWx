@@ -13,11 +13,10 @@ Page({
     book_id: '',
     scrollTop: 0,
 
-
-    //书籍资源
-    bookSources: [],
-    //章节
-    bookChapters: {},
+    //章节目录
+    bookChapters: false,
+    //章节名称
+    chapterTitle:'',
     //当前章节
     indexPage: 0, 
     //当前内容
@@ -133,9 +132,8 @@ Page({
       indexPage: this.data.indexPage - 1,
       scrollTop: 0
     });
-    if (this.data.bookChapters[this.data.indexPage]) {
-      this.getChapterContent(this.data.bookChapters[this.data.indexPage].chapter_id);
-    }
+    //获取内容
+    this.getBookChapters(this.data.book_id);
   },
 
   //下一章
@@ -152,9 +150,8 @@ Page({
       indexPage: this.data.indexPage + 1,
       scrollTop: 0
     });
-    if (this.data.bookChapters[this.data.indexPage]) {
-      this.getChapterContent(this.data.bookChapters[this.data.indexPage].chapter_id);
-    }
+    //获取内容
+    this.getBookChapters(this.data.book_id);
   },
 
   //点击中央打开菜单
@@ -193,72 +190,54 @@ Page({
     });
   },
 
-
+  //显示目录
   showChapter: function () {
     this.setData({
       showChapter: !this.data.showChapter
     });
+    if (!this.data.bookChapters) {
+      wx.showLoading({
+        title: '加载中...',
+      })
+      wx.request({
+        url: api.book.bookChapters(this.data.book_id),
+        success: res => {
+          this.setData({
+            bookChapters: res.data
+          });
+          wx.hideLoading();
+        }
+      })
+    }
   },
 
-
-
+  //点击目录章节
   pickChapter: function (event) {
     this.setData({
       indexPage: event.target.dataset.indexpage,
       scrollTop: 0
     });
-    this.getChapterContent(event.target.dataset.link);
+    this.getBookChapters(this.data.book_id);
   },
 
-
-
-  //获取树资源
-  getBookSources: function (book_id) {
-    wx.request({
-      url: api.book.bookSources(book_id),
-      success: res => {
-        this.setData({
-          bookSources: res.data
-        });
-        this.getBookChapters(this.data.bookSources[1] ? this.data.bookSources[1]._id : this.data.bookSources[0]._id);
-      }
-    })
-  },
 
   //获取书的章节
-  getBookChapters: function (source_id) {
+  getBookChapters: function (book_id) {
     wx.showLoading({
       title: '加载中',
       mask: true
     })
     wx.request({
-      url: api.book.bookChapters(source_id),
-      success: res => {
-        wx.hideLoading();
-        this.setData({
-          bookChapters: res.data
-        });
-        this.getChapterContent(this.data.bookChapters[this.data.indexPage].chapter_id);
-      }
-    })
-  },
-
-  //获取章节内容
-  getChapterContent: function (chapterId) {
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
-    wx.request({
-      url: api.book.chapterContent(chapterId),
+      url: api.book.bookChapterContents(book_id, this.data.indexPage),
       success: res => {
         wx.hideLoading();
         this.setData({
           showPage: true,
           showChapter: false,  //关闭目录
-          indexChapterContent: res.data
+          indexChapterContent: res.data.contents,
+          chapterTitle: res.data.title,
         });
-        
+
         //存储当前读到哪一章
         wx.getStorage({
           key: 'bookShelfData',
@@ -285,6 +264,7 @@ Page({
         })
       }
     })
+    
   },
 
   /**
@@ -294,6 +274,13 @@ Page({
     this.setData({
       book_id: options.book_id
     });
+    //设置系统信息
+    let systemInfo = wx.getStorageSync('systemInfo');
+    this.setData({
+      clientHeight: systemInfo.clientHeight,
+      clientWidth: systemInfo.clientWidth,
+      winHeight: systemInfo.winHeight
+    })
 
     //设置标题
     wx.setNavigationBarTitle({
@@ -310,21 +297,6 @@ Page({
         });
       }
     }
-
-    //获取系统高度
-    wx.getSystemInfo({
-      success: (res) => {
-        var clientHeight = res.windowHeight,
-          clientWidth = res.windowWidth,
-          rpxR = 750 / clientWidth;
-        var calc = clientHeight * rpxR;
-        this.setData({
-          clientHeight: clientHeight,
-          clientWidth: clientWidth,
-          winHeight: calc
-        });
-      }
-    });
 
     //是否呼出菜单
     wx.getStorage({

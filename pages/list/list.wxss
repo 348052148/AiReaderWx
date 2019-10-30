@@ -4,15 +4,15 @@
 .bookList {
   background: #fff;
   position: relative;
-  padding: 0 30rpx;
   width: 100%;
-  top: 40rpx;
+  top: 5rpx;
 }
 
 .book_item {
   border-bottom: 1px #eee solid;
   position: relative;
   height: 335rpx;
+  margin-left: 30rpx;
 }
 
 .book_item image {
@@ -27,7 +27,7 @@
 
 .book_info {
   position: absolute;
-  right: 50rpx;
+  right: 20rpx;
   top: 30rpx;
   width: 475rpx;
 }

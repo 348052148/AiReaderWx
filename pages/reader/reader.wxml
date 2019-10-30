@@ -6,7 +6,7 @@
   <!--正文内容-->
   <scroll-view bindtap='openMenu' scroll-with-animation='true' scroll-top='{{scrollTop}}' bindscroll='getScrollTop' enable-back-to-top scroll-y='true' style='height:{{winHeight}}rpx' class='read_container'>
     <view class='chapter_title' style='font-size: {{readerCss.titleSize}}px;color: {{readerCss.color}}'>
-      {{bookChapters[indexPage].title}}
+      {{chapterTitle}}
     </view>
     <view class='chapter_content' style='font-size: {{readerCss.contentSize}}px;color: {{readerCss.color}};line-height:{{readerCss.lineHeight}}rpx'>
     

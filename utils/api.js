@@ -37,6 +37,9 @@ module.exports = {
     chapterContent: function (chapter_id) {
       return apiHost+'api/chapter/' + chapter_id +'/contents';
     },
+    bookChapterContents: function (bookid, index) {
+      return apiHost + 'api/book/' + bookid + '/chapter/' + index +'/contents'
+    },
     bookChapters:function(book_id) {
       return apiHost+'api/book/' + book_id +'/chapters';
     }

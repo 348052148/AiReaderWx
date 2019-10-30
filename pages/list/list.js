@@ -6,6 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+      clientHeight:0,
+      clientWidth:0,
       winHeight:0,
       scrollTop: 0,
       bookList:[],
@@ -14,6 +16,7 @@ Page({
 
       //分页
       pageload: false,
+      isLoad:false,
 
       STATIC_HOST: api.assetHost
   },
@@ -22,12 +25,9 @@ Page({
     if (this.data.pageload == false) {
       this.setData({
         pageload: true,
+        isLoad:true,
       })
-      wx.showLoading({
-        title: '加载中',
-        mask: true
-      });
-      console.log("load more")
+      
       //接口搜索
       wx.request({
         url: api.book.bookMixedSearch('hot', this.data.page),
@@ -39,17 +39,17 @@ Page({
             }
             this.setData({
               bookList: books,
-              page: this.data.page + 1
+              page: this.data.page + 1,
+              pageload: false,
+              isLoad:false,
             }); 
-            wx.hideLoading();
+
           } else {
-            wx.hideLoading();
-            wx.showToast({
-              title: '没有更多书籍了',
-              duration: 1500
-            })
+            this.setData({
+              isLoad: false,
+            });
+            //到底了
           }
-          this.setData({ pageload: false});
         }
 
       })
@@ -61,25 +61,29 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //获取设置窗口高度
+    //设置系统信息
     wx.getSystemInfo({
       success: (res) => {
         var clientHeight = res.windowHeight,
           clientWidth = res.windowWidth,
           rpxR = 750 / clientWidth;
-        var calc = clientHeight * rpxR - 140;
-        this.setData({
+        var calc = clientHeight * rpxR;
+       this.setData({
+          clientHeight: clientHeight,
+          clientWidth: clientWidth,
           winHeight: calc
-        });
+        })
       }
     });
-    wx.showLoading({
-      title: '加载中..',
+    
+    //加载中
+    this.setData({
+      isLoad:true,
     })
+
     wx.request({
       url: api.book.bookMixedSearch('hot', this.data.page),
       success: res => {
-        wx.hideLoading();
         let books = this.data.bookList;
         for (let i = 0; i < res.data.list.length; i++) {
           books.push(res.data.list[i])
@@ -87,10 +91,9 @@ Page({
         this.setData({
           bookList: books,
           page: this.data.page + 1,
-          pageload: false
+          pageload: false,
+          isLoad:false,
         });
-
-        wx.hideLoading();
       }
     })
 
