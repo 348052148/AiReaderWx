@@ -32,35 +32,17 @@ Page({
     wx.showLoading({
       title: '加载中..',
     })
-    //bannar
+ 
+    //聚合数据
     wx.request({
-      url: api.home.banarList(),
-      success: res => {
-        let bannarInfo = this.data.bannarInfo;
-        bannarInfo.list = res.data;
-        this.setData({
-          bannarInfo: bannarInfo
-        });
-        wx.hideLoading();
-      }
-    })
-    //hot
-    wx.request({
-      url: api.home.hotBooks(),
+      url: api.home.homeBooks(),
       success: res => {
         this.setData({
-          hotBookList: res.data
-        });
-        wx.hideLoading();
-      }
-    })
-
-    //recommend
-    wx.request({
-      url: api.home.recommendBooks(),
-      success: res => {
-        this.setData({
-          recommendBookList: res.data
+          hotBookList: res.data.hot,
+          recommendBookList: res.data.recommend,
+          bannarInfo: {
+            list: res.data.bannars
+          },
         });
         wx.hideLoading();
       }

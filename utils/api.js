@@ -16,6 +16,9 @@ module.exports = {
     },
     banarList: function() {
       return apiHost + 'api/bannar/list'
+    },
+    homeBooks :function() {
+      return apiHost + 'api/home/books'
     }
   },
   book: {

@@ -7,7 +7,7 @@
   </view>
 
   <view class="weui-cells weui-cells_after-title userMenu">
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+    <navigator url="/pages/record/record" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
       <view class="weui-cell__hd">
         <image src="/img/icon_nav_icons.png" style="margin-right: 16px;vertical-align: middle;width:20px; height: 20px;"></image>
       </view>

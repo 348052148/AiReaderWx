@@ -28,13 +28,16 @@
   </view> 
 
   <!--目录-->
-  <scroll-view wx:if="{{showChapter}}" scroll-with-animation='true' class='chapterContainer' scroll-top="{{chapterScrollTop}}" style='height:{{winHeight}}rpx' scroll-y='true'>
+  <view class='chapterContainer' wx:if="{{showChapter}}">
     <view class='chapter_topic'>
       <view class='chapter_topic_title'>目录</view>
       <view bindtap='showChapter' class='chapter_topic_hide'>收起</view>
     </view>
+  <scroll-view class="chapterItems"  scroll-with-animation='true'  scroll-top="{{chapterScrollTop}}" style='height:{{winHeight-90}}rpx' scroll-y='true'>
      <view bindtap='pickChapter' data-link="{{item.chapter_id}}"  data-indexpage="{{index}}" class='chapter_item {{index==indexPage?"chapter_select":""}}' wx:key="{{index}}" wx:for="{{bookChapters}}">{{item.title}}</view> 
 
   </scroll-view>
+  </view>
+    
 
 </view>

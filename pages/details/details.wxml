@@ -9,7 +9,7 @@
     <text class="bookTitle">{{bookInfo.title}}</text>
     <text class="bookSite">{{bookInfo.author}}</text>
     <view class="infoBtn">
-      <navigator hover-class="none" url='/pages/reader/reader?book_id={{bookInfo.book_id}}&book_title={{bookInfo.title}}' class="startRead">开始阅读</navigator>
+      <navigator hover-class="none" url='/pages/reader/reader?book_id={{bookInfo.book_id}}&title={{bookInfo.title}}&cover={{bookInfo.cover}}&author={{bookInfo.author}}' class="startRead">开始阅读</navigator>
       <view bindtap='addShelf' class="addReader">{{addedShelf ? '已加入书架' : '加入书架'}}</view>
     </view>
   </view>
@@ -32,7 +32,7 @@
         </view>
 
         <!--目录-->
-      <navigator url='/pages/catalogs/catalogs?book_id={{bookInfo.book_id}}' >
+      <navigator url='/pages/catalogs/catalogs?book_id={{bookInfo.book_id}}&title={{bookInfo.title}}&author={{bookInfo.author}}' >
         <view class='openChapter'>
           <image src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACHElEQVR4Xu1awW0CMRDcNYJvoAPSAR2EDkgHuQe2+IUOkg7CE9lIHB1AB0kH6SB0EPJFgo1O4gF3B7YUabXR7X1tecczs37MLULDP2z4/UEJUAc0nAFtgYYbQB9BbYFyC1hrMwB4SmiNVQghv7Yvy7Jup9NZElE34SyuLRXMFQc45ygVzX6/7+V5vqvb75x7BYCX1LO49nnvL+5cR0BxobsEQD/e+6vqOuemAPCWcA7nlgrmCgHW2gEiPsZQEdE6hPB5a1/RTojYj53FtW6Myefz+fa8nj6CXOxLraMOkKoMFy51ABfTUuuoA6Qqw4VLHcDFtNQ66gCpynDhUgdwMS21jjpAqjJcuNQBZabH4/HQGPMQU+B4PH4sFov3SCL0jIhiQlFjzCqaCFlrv1NAE9EuhNC7RoDETJCINiGEi7ivUaFoEgFFCyBikejesu4OEXPv/fqaA07/BaZENIy1E8c6Im6JaFYOcvUR5GBfcg11gGR1OLCpAzhYllxDHSBZHQ5s6gAOliXXUAdIVocDmzqAg2XJNdQBktXhwKYOKLM8mUz6h8NhFMsF6wLGmoB1ZIwZcCgZq1FkmK1WaxMNRZ1zXwAQne2LhaKnGcFlDBjz+tZ7f39e80+jsuWx0/OD//OobBFkRidFEXHtvZ/dCkXb7XYxTC3mvwAA5OUBb30EmXtQXDl1gDhJmAGpA5gJF1dOHSBOEmZAjXfAL/nCn0HN4Hn4AAAAAElFTkSuQmCC'></image> 总目录({{bookInfo.chapter_count}}章)</view>
         </navigator>

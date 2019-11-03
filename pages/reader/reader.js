@@ -10,7 +10,15 @@ Page({
     clientWidth: "",
     clientHeight: "",
     winHeight: "",//窗口高度
+    //书籍id
     book_id: '',
+    //书籍名称
+    title: '',
+    //作者
+    author: '',
+    //封面
+    cover:'',
+    //阅读位置
     scrollTop: 0,
 
     //章节目录
@@ -190,6 +198,8 @@ Page({
         }
       },
     });
+    //存储阅读记录
+    this.storeReadRecord(event.detail.scrollTop);
   },
 
   //显示目录
@@ -197,6 +207,7 @@ Page({
     this.setData({
       showChapter: !this.data.showChapter
     });
+
     if (!this.data.bookChapters) {
       wx.showLoading({
         title: '加载中...',
@@ -207,16 +218,25 @@ Page({
           this.setData({
             bookChapters: res.data
           });
-          this.setData({
-            chapterScrollTop: this.data.indexPage * 38
-          })
+
+          var query = wx.createSelectorQuery();
+          query.select(".chapter_item").boundingClientRect((rect) => {
+            this.setData({
+              chapterScrollTop: this.data.indexPage * rect.height
+            });
+          }).exec();
+
           wx.hideLoading();
         }
       })
     }else {
-      this.setData({
-        chapterScrollTop: this.data.indexPage * 38
-      })
+      var query = wx.createSelectorQuery();
+      query.select(".chapter_item").boundingClientRect((rect) => {
+        this.setData({
+          chapterScrollTop: this.data.indexPage * rect.height
+        });
+      }).exec();
+      
     }
     
   },
@@ -228,6 +248,38 @@ Page({
       scrollTop: 0
     });
     this.getBookChapters(this.data.book_id);
+  },
+
+
+  storeReadRecord: function (scrollTop) {
+    //存储当前读到哪一章
+    let record = wx.getStorageSync('bookReadRecord') || []
+    let exists = false;
+    for (let i = 0; i < record.length; i++) {
+      if (this.data.book_id === record[i].id) {
+        exists = true;
+        record[i].readNum = this.data.indexPage + 1;
+        record[i].laterScrollTop = scrollTop
+        wx.setStorage({
+          key: 'bookReadRecord',
+          data: record,
+        })
+      }
+    }
+    if (!exists) {
+      record.push({
+        id: this.data.book_id,
+        title: this.data.title,
+        cover: this.data.cover,
+        author: this.data.author,
+        readNum: this.data.indexPage + 1,
+        laterScrollTop: scrollTop
+      });
+      wx.setStorage({
+        key: 'bookReadRecord',
+        data: record,
+      })
+    }
   },
 
 
@@ -265,6 +317,10 @@ Page({
             }
           },
         });
+
+        //存储阅读记录
+        this.storeReadRecord(this.data.scrollTop);
+
         //使用Wxparse格式化小说内容   对收费的显示文字   后期换接口处理
         WxParse.wxParse('article', 'html', !this.data.indexChapterContent ? '小轻还没有给主人搬到此书，去看看别的吧' : this.data.indexChapterContent, this);
 
@@ -284,6 +340,9 @@ Page({
     this.setData({
       book_id: options.book_id,
       indexPage: options.index | 0,
+      title: options.title,
+      cover: options.cover,
+      author:options.author,
     });
     //设置系统信息
     wx.getSystemInfo({

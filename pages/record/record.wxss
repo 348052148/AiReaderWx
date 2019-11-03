@@ -1,0 +1,9 @@
+/* pages/record/record.wxss */
+
+.weui-media-box__hd_in-appmsg {
+  height: 180rpx;
+}
+
+.readnum {
+  color:brown;
+}

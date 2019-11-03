@@ -10,6 +10,8 @@ Page({
     clientHeight: "",
     winHeight: "",//窗口高度
     book_id: '',
+    title:'',
+    author:'',
     chapterList:[]
   },
 
@@ -35,7 +37,9 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      book_id: options.book_id
+      book_id: options.book_id,
+      title:options.title,
+      author:options.author,
     });
 
     //获取系统高度

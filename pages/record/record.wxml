@@ -1,0 +1,22 @@
+<!--pages/record/record.wxml-->
+
+<view>
+  <view class="weui-panel weui-panel_access">
+    <view class="weui-panel__hd">阅读历史</view>
+    <view class="weui-panel__bd">
+      <navigator url="/pages/reader/reader?book_id={{record.id}}&title={{record.title}}&index={{record.readNum-1}}" wx:for="{{records}}" wx:key="{{index}}" wx:for-item="record" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+          <image height="120" class="weui-media-box__thumb" height src="{{STATIC_HOST}}book/image/{{record.id}}.jpeg" />
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+          <view class="weui-media-box__title">{{record.title}}</view>
+          <view class="weui-media-box__desc">作者： {{record.author}}</view>
+          <view style="color:cb1c36;" class="weui-media-box__desc readnum">读到第 {{record.readNum}} 章</view>
+        </view>
+      </navigator>
+    </view>
+    <view class="weui-panel__ft">
+    </view>
+  </view>
+
+</view>

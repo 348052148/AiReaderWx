@@ -81,6 +81,7 @@
   display: flex;
   direction: row;
   justify-content: space-between;
+  position: fixed;
 }
 
 .chapter_topic_hide {
@@ -92,6 +93,12 @@
   font-weight: normal;
   text-align: center;
   line-height: 50rpx;
+  position: fixed;
+  right:0;
+}
+
+.chapterItems {
+  margin-top: 90rpx;
 }
 
 .chapter_item {

@@ -9,7 +9,8 @@
     "pages/auth/auth",
     "pages/list/list",
     "pages/user/user",
-    "pages/catalogs/catalogs"
+    "pages/catalogs/catalogs",
+    "pages/record/record"
   ],
   "window": {
     "backgroundTextStyle": "light",
