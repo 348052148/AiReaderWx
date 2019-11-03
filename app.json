@@ -38,7 +38,7 @@
         "iconPath": "img/search.png",
         "selectedIconPath": "img/selectedSearch.png",
         "pagePath": "pages/user/user",
-        "text": "搜索"
+        "text": "我的"
       }
     ]
   },

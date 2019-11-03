@@ -29,10 +29,8 @@ App({
         wx.request({
           url: api.wechat.login(res.code),
           success: res => {
-            //设置用户信息
-            wx.setStorageSync('loginInfo', res.data)
-
             var openid = res.data.openid
+            wx.setStorageSync('openid', openid)
             if (res.statusCode == 404) {
               // 获取用户信息
               wx.getSetting({
@@ -69,9 +67,9 @@ App({
                     })
                   } else {
                     //跳转授权
-                    wx.navigateTo({
-                      url: '/pages/auth/auth?openid=' + openid,
-                    })
+                    // wx.navigateTo({
+                    //   url: '/pages/auth/auth?openid=' + openid,
+                    // })
                   }
                 }
               })
@@ -79,6 +77,8 @@ App({
             else {
               //登陆成功
               this.globalData.userInfo = res.data.data
+              //设置用户信息
+              wx.setStorageSync('loginInfo', res.data)
             }
           }
         })

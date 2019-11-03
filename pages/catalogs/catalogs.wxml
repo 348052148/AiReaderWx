@@ -5,8 +5,8 @@
     <view class='chapter_topic'>
       <view class='chapter_topic_title'>目录</view>
     </view>
-    <navigator url="/pages/reader/reader?book_id={{book_id}}">
-        <view  data-link="{{item.chapter_id}}" data-indexpage="{{index}}" class='chapter_item' wx:key="{{index}}" wx:for="{{chapterList}}">{{item.title}}</view> 
+    <navigator data-link="{{item.chapter_id}}" wx:key="{{index}}"  wx:for="{{chapterList}}" url="/pages/reader/reader?book_id={{book_id}}&index={{index}}">
+        <view  class='chapter_item'  >{{item.title}}</view> 
     </navigator>
   </scroll-view>
 </view>

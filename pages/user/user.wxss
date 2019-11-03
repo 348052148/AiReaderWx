@@ -28,6 +28,21 @@
   font-weight: bold;
 }
 
+.userInfo .login {
+  display: inline-block;
+  text-align: center;
+  line-height: 150rpx;
+  margin-left: 20rpx;
+  text-indent: 30rpx;
+  font-weight: bold;
+  color: #cb1c36;
+  border: none;
+  background: #fff;
+}
+button::after {
+  border: none;
+}
+
 .userMenu {
   margin-top: 10rpx;
 }

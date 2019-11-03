@@ -1,5 +1,5 @@
-let apiHost = 'https://api.rbxgg.cn/';
-//let apiHost = 'http://127.0.0.1:8000/';
+//let apiHost = 'https://api.rbxgg.cn/';
+let apiHost = 'http://127.0.0.1:8000/';
 module.exports = {
   assetHost: apiHost,
   user: {

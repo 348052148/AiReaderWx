@@ -45,7 +45,7 @@
             <view bindtap='randomRecommendBooks' class='re_refresh'>换一换</view>
           </view>
           <view class='re_books'>
-            <navigator wx:key="{{index}}" hover-class="none" class='re_bookItem' wx:for="{{showRecommendBooks}}" url='/pages/details/details?book_id={{item._id}}'>
+            <navigator wx:key="{{index}}" hover-class="none" class='re_bookItem' wx:for="{{showRecommendBooks}}" url='/pages/details/details?book_id={{item.book_id}}'>
               <image src="{{STATIC_HOST}}book/image/{{item.book_id}}.jpeg"></image>
               <view class='re_bookTitle'>{{item.title}}</view>
             </navigator>

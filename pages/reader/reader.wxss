@@ -103,3 +103,7 @@
   line-height: 75rpx;
   height: 75rpx;
 }
+
+.chapter_select {
+  color: #cb1c36;
+}

@@ -22,6 +22,8 @@ Page({
     //当前内容
     indexChapterContent: '', //当前阅读的内容
 
+    chapterScrollTop:0,
+
     //格式设置
     readerCss: {
       titleSize: 20,
@@ -205,10 +207,18 @@ Page({
           this.setData({
             bookChapters: res.data
           });
+          this.setData({
+            chapterScrollTop: this.data.indexPage * 38
+          })
           wx.hideLoading();
         }
       })
+    }else {
+      this.setData({
+        chapterScrollTop: this.data.indexPage * 38
+      })
     }
+    
   },
 
   //点击目录章节
@@ -272,15 +282,24 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      book_id: options.book_id
+      book_id: options.book_id,
+      indexPage: options.index | 0,
     });
     //设置系统信息
-    let systemInfo = wx.getStorageSync('systemInfo');
-    this.setData({
-      clientHeight: systemInfo.clientHeight,
-      clientWidth: systemInfo.clientWidth,
-      winHeight: systemInfo.winHeight
-    })
+    wx.getSystemInfo({
+      success: (res) => {
+        var clientHeight = res.windowHeight,
+          clientWidth = res.windowWidth,
+          rpxR = 750 / clientWidth;
+        var calc = clientHeight * rpxR;
+
+       this.setData({
+          clientHeight: clientHeight,
+          clientWidth: clientWidth,
+          winHeight: calc
+        })
+      }
+    });
 
     //设置标题
     wx.setNavigationBarTitle({

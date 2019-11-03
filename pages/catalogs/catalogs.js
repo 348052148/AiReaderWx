@@ -39,11 +39,18 @@ Page({
     });
 
     //获取系统高度
-    let systemInfo = wx.getStorageSync('systemInfo');
-    this.setData({
-      clientHeight: systemInfo.clientHeight,
-      clientWidth: systemInfo.clientWidth,
-      winHeight: systemInfo.winHeight
+    wx.getSystemInfo({
+      success: (res) => {
+        var clientHeight = res.windowHeight,
+          clientWidth = res.windowWidth,
+          rpxR = 750 / clientWidth;
+        var calc = clientHeight * rpxR;
+        this.setData({
+          clientHeight: clientHeight,
+          clientWidth: clientWidth,
+          winHeight: calc
+        })
+      }
     });
     
     this.getBookChapters(options.book_id);

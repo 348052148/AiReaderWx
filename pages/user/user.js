@@ -6,7 +6,32 @@ Page({
    * 页面的初始数据
    */
   data: {
-      userInfo:{}
+      userInfo:{},
+      isLogin:false,
+  },
+
+  login: function(e)
+  {
+    console.log(e.detail.userInfo)
+    let openid = wx.getStorageSync("openid");
+    let userInfo = e.detail.userInfo;
+    //注册
+    wx.request({
+      url: api.wechat.register(),
+      method: 'POST',
+      data: {
+        openid: openid,
+        data: userInfo
+      },
+      success: (res) => {
+        //设置用户信息
+        wx.setStorageSync('loginInfo', res.data);
+        this.setData({
+          userInfo: res.data,
+          isLogin: true,
+        });
+      }
+    })
   },
 
   callPhone: function()
@@ -20,10 +45,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var userInfo = wx.getStorageSync('loginInfo') || []
-    this.setData({
-      userInfo: userInfo,
-    });
+    var userInfo = wx.getStorageSync('loginInfo') || false
+    if (userInfo) {
+      this.setData({
+        userInfo: userInfo,
+        isLogin: true,
+      });
+    }
+    
   },
 
   /**

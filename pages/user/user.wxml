@@ -2,7 +2,8 @@
 <view class="userCenter">
   <view class="userInfo">
     <image src="{{userInfo.avatar_url}}" />
-    <text>{{userInfo.nick_name}}</text>
+    <text wx:if="{{isLogin}}"> {{userInfo.nick_name}}</text>
+     <button wx:else class="login" style="border:none;" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="login">请点击登陆</button>
   </view>
 
   <view class="weui-cells weui-cells_after-title userMenu">
