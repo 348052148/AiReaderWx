@@ -37,6 +37,7 @@ Page({
         id: this.data.bookInfo.book_id,
         title: this.data.bookInfo.title,
         cover: this.data.bookInfo.cover,
+        chapterTitle: '未阅读',
       },
       readNum: 1,
       laterScrollTop: 0 //上次滑动的距离

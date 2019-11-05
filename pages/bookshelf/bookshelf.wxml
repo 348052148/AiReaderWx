@@ -14,7 +14,7 @@
       <image class="{{isEdit ? 'deletAnimation' : ''}}" src="{{STATIC_HOST}}book/image/{{item.bookInfo.id}}.jpeg"></image>
       <icon wx:if='{{isEdit}}' bindtap='delete' data-id='{{index}}' class='deletIcon' type='clear' color='#999' size='30'></icon>
       <text class='name'>{{item.bookInfo.title}}</text>
-      <view class='readNum'>读到第{{item.readNum}}章</view>
+      <view class='readNum'>{{item.bookInfo.chapterTitle}}</view>
     </navigator>
   </view>
 </view>

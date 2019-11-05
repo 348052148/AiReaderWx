@@ -260,6 +260,7 @@ Page({
         exists = true;
         record[i].readNum = this.data.indexPage + 1;
         record[i].laterScrollTop = scrollTop
+        record[i].chapterTitle = this.data.chapterTitle,
         wx.setStorage({
           key: 'bookReadRecord',
           data: record,
@@ -273,6 +274,7 @@ Page({
         cover: this.data.cover,
         author: this.data.author,
         readNum: this.data.indexPage + 1,
+        chapterTitle: this.data.chapterTitle,
         laterScrollTop: scrollTop
       });
       wx.setStorage({
@@ -308,7 +310,8 @@ Page({
             for (let i = 0; i < data.length; i++) {
               if (this.data.book_id === data[i].bookInfo.id) {
                 data[i].readNum = this.data.indexPage + 1;
-                data[i].laterScrollTop = this.data.scrollTop
+                data[i].laterScrollTop = this.data.scrollTop;
+                data[i].bookInfo.chapterTitle = this.data.chapterTitle;
                 wx.setStorage({
                   key: 'bookShelfData',
                   data: data,

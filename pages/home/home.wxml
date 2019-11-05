@@ -1,5 +1,6 @@
 <!--pages/home/home.wxml-->
-<view class="home">
+<scroll-view enable-back-to-top class='home bookList' scroll-top="{{scrollTop}}"  scroll-y="true" style="height:{{winHeight}}rpx;overflow-anchor:true;" bindscrolltolower="loadmore">
+
 <view class='searchContainer'>
 <icon wx:if="{{!searchValue}}" class='searchIcon' type='search' color='#999' size='14'></icon>
  <input type='text' value="{{searchValue}}" confirm-type='search'  bindtap='hitInput' placeholder-class='placerStyle' bindconfirm='search' placeholder='全网书籍搜索' disabled="true"></input>
@@ -25,7 +26,7 @@
     <view class="bookContainer">
 
       <navigator class="bookBox" url='/pages/details/details?book_id={{book.book_id}}'  wx:for="{{hotBookList}}" wx:key="{{index}}" wx:for-item="book" >
-          <image src="{{book.cover}}"></image>
+          <image src="{{STATIC_HOST}}book/image/{{book.book_id}}.jpeg"></image>
           <text>{{book.title}}</text>
       </navigator>
 
@@ -40,7 +41,7 @@
 
     <view class="bookContainer">
       <navigator class="bookBox" url='/pages/details/details?book_id={{book.book_id}}'  wx:for="{{recommendBookList}}" wx:key="{{index}}" wx:for-item="book" >
-          <image src="{{book.cover}}"></image>
+          <image src="{{STATIC_HOST}}book/image/{{book.book_id}}.jpeg"></image>
           <text>{{book.title}}</text>
       </navigator>
     </view>
@@ -48,7 +49,33 @@
   </view>
 
 
-</view>
+  <!--书籍列表-->
+  
+
+    <view wx:if="{{bookList.length > 0}}">
+      <navigator hover-class="none" url='/pages/details/details?book_id={{book.book_id}}' class='book_item' wx:for="{{bookList}}" wx:key="{{index}}" wx:for-item="book">
+        <image src='{{STATIC_HOST}}book/image/{{book.book_id}}.jpeg' lazy-load='true'></image>
+        <view class='book_info'>
+          <text class='book_title'>{{book.title}}</text>
+          <text class='book_site'>作者: {{book.author}}</text>
+          <view class='book_desc'>{{book.detail}}</view>
+          <view class='book_follower'>{{book.classfiy}}</view>
+        </view>
+      </navigator>
+    </view>
+    <view wx:else class="weui-loadmore weui-loadmore_line">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+    </view>
+
+    <view wx:if="{{isLoad}}" class="weui-loadmore">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+    <view wx:else class="weui-loadmore weui-loadmore_line">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">到底了</view>
+    </view>
+
+</scroll-view>
 
 
  

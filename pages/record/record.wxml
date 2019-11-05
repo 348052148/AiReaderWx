@@ -11,7 +11,7 @@
         <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
           <view class="weui-media-box__title">{{record.title}}</view>
           <view class="weui-media-box__desc">作者： {{record.author}}</view>
-          <view style="color:cb1c36;" class="weui-media-box__desc readnum">读到第 {{record.readNum}} 章</view>
+          <view style="color:cb1c36;" class="weui-media-box__desc readnum">读至： {{record.chapterTitle}}</view>
         </view>
       </navigator>
     </view>

@@ -21,8 +21,56 @@ Page({
     //热门
     hotBookList:[],
     //推荐
-    recommendBookList: []
-    
+    recommendBookList: [],
+    //列表
+    scrollTop: 0,
+    bookList: [],
+    //当前搜索页
+    page: 1,
+    //分页
+    pageload: false,
+    isLoad: false,
+
+    clientHeight: 0,
+    clientWidth: 0,
+    winHeight: 0,
+    STATIC_HOST: api.assetHost,
+  },
+
+  loadmore: function () {
+    if (this.data.pageload == false) {
+      this.setData({
+        pageload: true,
+        isLoad: true,
+      })
+
+      //接口搜索
+      wx.request({
+        url: api.book.bookMixedSearch('hot', this.data.page),
+        success: res => {
+          if (res.data.list.length > 0) {
+            let books = this.data.bookList;
+            for (let i = 0; i < res.data.list.length; i++) {
+              books.push(res.data.list[i])
+            }
+            this.setData({
+              bookList: books,
+              page: this.data.page + 1,
+              pageload: false,
+              isLoad: false,
+            });
+
+          } else {
+            this.setData({
+              isLoad: false,
+            });
+            //到底了
+          }
+        }
+
+      })
+
+    }
   },
 
   /**
@@ -32,6 +80,20 @@ Page({
     wx.showLoading({
       title: '加载中..',
     })
+
+    wx.getSystemInfo({
+      success: (res) => {
+        var clientHeight = res.windowHeight,
+          clientWidth = res.windowWidth,
+          rpxR = 750 / clientWidth;
+        var calc = clientHeight * rpxR;
+        this.setData({
+          clientHeight: clientHeight,
+          clientWidth: clientWidth,
+          winHeight: calc
+        })
+      }
+    });
  
     //聚合数据
     wx.request({
@@ -45,6 +107,22 @@ Page({
           },
         });
         wx.hideLoading();
+      }
+    })
+
+    wx.request({
+      url: api.book.bookMixedSearch('hot', this.data.page),
+      success: res => {
+        let books = this.data.bookList;
+        for (let i = 0; i < res.data.list.length; i++) {
+          books.push(res.data.list[i])
+        }
+        this.setData({
+          bookList: books,
+          page: this.data.page + 1,
+          pageload: false,
+          isLoad: false,
+        });
       }
     })
   },
