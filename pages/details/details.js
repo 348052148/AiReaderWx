@@ -1,5 +1,6 @@
 // pages/details/details.js
 const api = require('../../utils/api.js');
+const util = require('../../utils/util.js');
 Page({
 
   /**
@@ -42,6 +43,20 @@ Page({
       readNum: 1,
       laterScrollTop: 0 //上次滑动的距离
     };
+
+    //添加到书架
+    let userInfo = util.getUserInfo();
+    wx.request({
+      url: api.bookshelf.addBook(userInfo.user_id, this.data.bookInfo.book_id),
+      method: 'post',
+      data: {
+        readNum: 0,
+        readOffset: 0,
+      },
+      success: function (res) {
+        console.log(res);
+      }
+    })
 
     wx.getStorage({
       key: 'bookShelfData',

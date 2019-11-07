@@ -5,7 +5,6 @@
   background: #fff;
   position: relative;
   width: 100%;
-  top: 5rpx;
 }
 
 .book_item {

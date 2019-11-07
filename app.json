@@ -36,8 +36,8 @@
         "text": "书架"
       },
       {
-        "iconPath": "img/search.png",
-        "selectedIconPath": "img/selectedSearch.png",
+        "iconPath": "img/user.png",
+        "selectedIconPath": "img/selectedUser.png",
         "pagePath": "pages/user/user",
         "text": "我的"
       }

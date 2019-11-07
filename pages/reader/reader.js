@@ -1,6 +1,7 @@
 // pages/reader/reader.js
 const api = require('../../utils/api.js')
 const WxParse = require('../wxParse/wxParse.js');
+const util = require('../../utils/util.js');
 Page({
   /**
    * 页面的初始数据
@@ -320,6 +321,21 @@ Page({
             }
           },
         });
+
+        //存储
+        let userInfo = util.getUserInfo();
+        wx.request({
+          url: api.bookshelf.addBook(userInfo.user_id, this.data.book_id),
+          method: 'put',
+          data: {
+            readNum: this.data.indexPage + 1,
+            readOffset: this.data.scrollTop,
+          },
+          success: function (res) {
+            console.log(res);
+          }
+        })
+        
 
         //存储阅读记录
         this.storeReadRecord(this.data.scrollTop);

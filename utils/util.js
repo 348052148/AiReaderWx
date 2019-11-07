@@ -15,5 +15,8 @@ const formatNumber = n => {
 }
 
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  getUserInfo : function() {
+      return wx.getStorageSync('loginInfo') || []
+  }
 }

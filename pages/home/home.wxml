@@ -1,10 +1,14 @@
 <!--pages/home/home.wxml-->
 <scroll-view enable-back-to-top class='home bookList' scroll-top="{{scrollTop}}"  scroll-y="true" style="height:{{winHeight}}rpx;overflow-anchor:true;" bindscrolltolower="loadmore">
+<view class="search">
+  <view class='searchContainer'>
+    <icon wx:if="{{!searchValue}}" class='searchIcon' type='search' color='#999' size='14'></icon>
+    <input type='text' value="{{searchValue}}" confirm-type='search'  bindtap='hitInput' placeholder-class='placerStyle' bindconfirm='search' placeholder='全网书籍搜索' disabled="true"></input>
+  </view>
+</view>
 
-<view class='searchContainer'>
-<icon wx:if="{{!searchValue}}" class='searchIcon' type='search' color='#999' size='14'></icon>
- <input type='text' value="{{searchValue}}" confirm-type='search'  bindtap='hitInput' placeholder-class='placerStyle' bindconfirm='search' placeholder='全网书籍搜索' disabled="true"></input>
- </view>
+<view class="searchfix">
+</view>
 
 <swiper class="bannar" indicator-dots="{{bannarInfo.indicatorDots}}"
   autoplay="{{bannarInfo.autoplay}}" interval="{{bannarInfo.interval}}" duration="{{bannarInfo.duration}}">
@@ -18,35 +22,32 @@
 </swiper>
 
   <!-- 热门模块 -->
-  <view class="hotContainer">
-    <view class="hotHead">
-      <label class="hotTitle">热门</label><navigator  url="/pages/list/list"  class="hotMore" >查看更多</navigator>
-    </view>
-
-    <view class="bookContainer">
-
-      <navigator class="bookBox" url='/pages/details/details?book_id={{book.book_id}}'  wx:for="{{hotBookList}}" wx:key="{{index}}" wx:for-item="book" >
+  <view class="weui-panel weui-panel_access hotContainer">
+   <view class="hotHead">
+      <label class="hotTitle">热门</label><navigator url="/pages/list/list" class="hotMore" >查看更多</navigator>
+    </view> 
+    <view class="weui-panel__bd bookContainer">
+        <navigator class="bookBox" url='/pages/details/details?book_id={{book.book_id}}'  wx:for="{{hotBookList}}" wx:key="{{index}}" wx:for-item="book" >
           <image src="{{STATIC_HOST}}book/image/{{book.book_id}}.jpeg"></image>
           <text>{{book.title}}</text>
-      </navigator>
-
+        </navigator>
+        
     </view>
-  </view>
+  </view>   
 
     <!--推荐 http://img.quanshuwang.com/image/144/144900/144900s.jpg-->
-  <view class="hotContainer">
-    <view class="hotHead">
+  <view class="weui-panel weui-panel_access hotContainer">
+   <view class="hotHead">
       <label class="hotTitle">推荐</label><navigator url="/pages/list/list" class="hotMore" >查看更多</navigator>
-    </view>
-
-    <view class="bookContainer">
-      <navigator class="bookBox" url='/pages/details/details?book_id={{book.book_id}}'  wx:for="{{recommendBookList}}" wx:key="{{index}}" wx:for-item="book" >
+    </view> 
+    <view class="weui-panel__bd bookContainer">
+        <navigator class="bookBox" url='/pages/details/details?book_id={{book.book_id}}'  wx:for="{{recommendBookList}}" wx:key="{{index}}" wx:for-item="book" >
           <image src="{{STATIC_HOST}}book/image/{{book.book_id}}.jpeg"></image>
           <text>{{book.title}}</text>
-      </navigator>
+        </navigator>
+
     </view>
-    
-  </view>
+  </view>   
 
 
   <!--书籍列表-->

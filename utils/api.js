@@ -1,10 +1,24 @@
-let apiHost = 'https://api.rbxgg.cn/';
-//let apiHost = 'http://127.0.0.1:8000/';
+//let apiHost = 'https://api.rbxgg.cn/';
+let apiHost = 'http://127.0.0.1:8000/';
 module.exports = {
   assetHost: apiHost,
   user: {
     userInfo: function(openid) {
       return apiHost + 'api/user/'+ openid
+    }
+  },
+  bookshelf: {
+    addBook:function(userid, bookid) {
+      return apiHost + "api/user/" + userid + "/bookshelf/" + bookid
+    },
+    removeBook:function(userid, bookid) {
+      return apiHost + "api/user/" + userid + "/bookshelf/" + bookid
+    },
+    getBooks:function(userid) {
+      return apiHost + "api/user/" + userid + "/bookshelf"
+    },
+    updateBook: function(userid, bookid) {
+      return apiHost + "api/user/" + userid + "/bookshelf/" + bookid
     }
   },
   home: {
