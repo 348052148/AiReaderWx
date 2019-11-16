@@ -19,6 +19,9 @@ module.exports = {
     },
     updateBook: function(userid, bookid) {
       return apiHost + "api/user/" + userid + "/bookshelf/" + bookid
+    },
+    getUpdateState: function(userid) {
+      return apiHost + "api/user/" + userid + "/bookshelf/state"
     }
   },
   home: {

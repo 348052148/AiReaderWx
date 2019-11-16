@@ -52,6 +52,21 @@ Page({
     })
   },
 
+  //获取书籍更新状态
+  getUpdateState: function() {
+    let userInfo = util.getUserInfo();
+      wx.request({
+        url: api.bookshelf.getUpdateState(userInfo.user_id),
+        success: (res) => {
+            console.log(res)
+
+            this.setData({
+              hasUpdate:res.data
+            });
+        }
+      })
+  },
+
   //获取书架
   getShelfInfo: function () {
     wx.showLoading({
@@ -107,5 +122,7 @@ Page({
       hasUpdate: []
     });
     this.getShelfInfo();
+
+    this.getUpdateState();
   }
 })

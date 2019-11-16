@@ -30,8 +30,10 @@ Page({
     indexPage: 0, 
     //当前内容
     indexChapterContent: '', //当前阅读的内容
-
+    //内容偏移
     chapterScrollTop:0,
+    //已读标记
+    readFlag:0,
 
     //格式设置
     readerCss: {
@@ -292,8 +294,20 @@ Page({
       title: '加载中',
       mask: true
     })
+
+    //已阅读事件触发
+    let reqData = {};
+    if (this.data.readFlag == 1) {
+      let userInfo = util.getUserInfo();
+        reqData = {
+          'is_read': true,
+          'user_id': userInfo.user_id
+        }
+    }
+
     wx.request({
       url: api.book.bookChapterContents(book_id, this.data.indexPage),
+      data: reqData,
       success: res => {
         wx.hideLoading();
         this.setData({
@@ -301,6 +315,7 @@ Page({
           showChapter: false,  //关闭目录
           indexChapterContent: res.data.contents,
           chapterTitle: res.data.title,
+          readFlag: this.data.readFlag + 1
         });
 
         //存储当前读到哪一章

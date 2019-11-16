@@ -2,7 +2,7 @@
 
 <view>
   <view class="weui-panel weui-panel_access">
-    <view class="weui-panel__hd">阅读历史</view>
+    <view class="weui-panel__hd">最近阅读</view>
     <view class="weui-panel__bd">
       <navigator url="/pages/reader/reader?book_id={{record.id}}&title={{record.title}}&index={{record.readNum-1}}" wx:for="{{records}}" wx:key="{{index}}" wx:for-item="record" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
         <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
