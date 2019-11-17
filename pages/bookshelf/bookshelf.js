@@ -73,46 +73,61 @@ Page({
       title: '加载中',
       mask: true
     });
-    wx.getStorage({
-      key: 'bookShelfData',
-      success: (res) => {
-        this.setData({
-          bookShelfData: res.data
-        });
-      },
-    })
+    
     let shelfData = wx.getStorageSync('bookShelfData') || []
 
-    //如果书籍为空
-    if (shelfData.length == 0) {
-        let userInfo = util.getUserInfo();
-          wx.request({
-            url: api.bookshelf.getBooks(userInfo.user_id),
-            success: (res) => {
-              let bookshelfs = [];
-              for(let i=0; i < res.data.length; i++) {
-                bookshelfs.push({
-                  bookInfo:{
-                    id:res.data[i].book_id,
-                    title:res.data[i].title,
-                    chapterTitle: res.data[i].chapter_title
-                  },
-                  readNum: res.data[i].read_num,
-                  laterScrollTop: res.data[i].read_offset
-                });
-              }
-              this.setData({
-                bookShelfData: bookshelfs
-              });
-              wx.setStorageSync('bookShelfData', bookshelfs)
-            }
-         })
-    } else {
-      this.setData({
-        bookShelfData: shelfData
-      });
+    let bookMaps = {};
+    for (let i = 0; i < shelfData.length; i++) {
+      bookMaps[shelfData[i].bookInfo.id] = shelfData[i];
     }
-    wx.hideLoading();   
+    console.log(bookMaps)
+
+    let userInfo = util.getUserInfo();
+    wx.request({
+      url: api.bookshelf.getBooks(userInfo.user_id),
+      success: (res) => {
+        let bookshelfs = [];
+        for (let i = 0; i < res.data.length; i++) {
+          let book = {};
+          if (bookMaps[res.data[i].book_id]) {
+            book = {
+              bookInfo: {
+                id: res.data[i].book_id,
+                title: res.data[i].title,
+                chapterTitle: bookMaps[res.data[i].book_id].bookInfo.chapterTitle
+              },
+              readNum: bookMaps[res.data[i].book_id].readNum,
+              laterScrollTop: bookMaps[res.data[i].book_id].laterScrollTop
+            }
+          }else {
+            book = {
+              bookInfo: {
+                id: res.data[i].book_id,
+                title: res.data[i].title,
+                chapterTitle: res.data[i].chapter_title
+              },
+              readNum: res.data[i].read_num,
+              laterScrollTop: res.data[i].read_offset
+            }
+          }
+
+          bookshelfs.push(book);
+        }
+        
+        this.setData({
+          bookShelfData: bookshelfs
+        });
+
+        wx.setStorageSync('bookShelfData', bookshelfs)
+
+        wx.hideLoading();
+
+      }
+    })
+
+    //如果书籍为空
+   
+   
     
   },
   onLoad: function () {
