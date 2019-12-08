@@ -64,6 +64,11 @@ module.exports = {
       return apiHost+'api/book/' + book_id +'/chapters';
     }
   },
+  classify: {
+    getClassfiyMenus: function() {
+      return apiHost + 'api/classify/menus'
+    }
+  },
   wechat: {
     login : function(code) {
       return apiHost+'api/wechat/login/'+code

@@ -18,7 +18,95 @@ Page({
       pageload: false,
       isLoad:false,
 
+      //搜索菜单
+      searchTabs:[
+      
+      ],
+
+      classifys :[],
+      currentAttr: 'all',
+
       STATIC_HOST: api.assetHost
+  },
+  //选择Tab
+  selectTab :function(e) {
+    let tab = e.currentTarget.dataset['tab'];
+    let index = e.currentTarget.dataset['index'];
+    let attr = 'all';
+    let menus = [];
+    if (tab.menus && tab.menus.length > 0) {
+      tab.menus[0].active = true
+      attr = tab.menus[0].flag
+
+      menus = tab.menus;
+    }else {
+      menus = [];
+    }
+
+    for (let i = 0; i < this.data.searchTabs.length; i++) {
+      this.data.searchTabs[i].active = false;
+    }
+    this.data.searchTabs[index].active = true;
+
+    this.setData({
+      classifys: menus,
+      searchTabs: this.data.searchTabs,
+      currentAttr: attr
+    })
+
+    this.searchBooks(attr, 1);
+  },
+  //选择分类
+  selectClassify: function(e) {
+    let classify = e.currentTarget.dataset['classify'];
+    let index = e.currentTarget.dataset['index'];
+    let classifys = this.data.classifys;
+
+    for (let i =0; i< classifys.length; i++) {
+      classifys[i].active = false;
+    }
+    classifys[index].active = true;
+    this.setData({
+      classifys: classifys,
+      currentAttr: classify['flag']
+    })
+
+    this.searchBooks(classify['flag'], 1);
+  },
+
+  searchBooks: function(attr, page){
+    //加载中
+    this.setData({
+      isLoad: true,
+    })
+
+    // 如果是第一页，清空列表
+    if (page == 1) {
+      this.setData({
+        bookList: []
+      });
+    }
+
+    wx.request({
+      url: api.book.bookMixedSearch(attr, page),
+      success: res => {
+        let books = [];
+        if (page > 1) {
+          books = this.data.bookList;
+        }
+
+        for (let i = 0; i < res.data.list.length; i++) {
+          books.push(res.data.list[i])
+        }
+
+        this.setData({
+          bookList: books,
+          page: page + 1,
+          pageload: false,
+          isLoad: false,
+        });
+      }
+    })
   },
 
   loadmore: function () {
@@ -30,7 +118,7 @@ Page({
       
       //接口搜索
       wx.request({
-        url: api.book.bookMixedSearch('hot', this.data.page),
+        url: api.book.bookMixedSearch(this.data.currentAttr, this.data.page),
         success: res => {
           if (res.data.list.length > 0) {
             let books = this.data.bookList;
@@ -74,29 +162,18 @@ Page({
           winHeight: calc
         })
       }
-    });
-    
-    //加载中
-    this.setData({
-      isLoad:true,
-    })
+    });    
 
     wx.request({
-      url: api.book.bookMixedSearch('hot', this.data.page),
+      url: api.classify.getClassfiyMenus(),
       success: res => {
-        let books = this.data.bookList;
-        for (let i = 0; i < res.data.list.length; i++) {
-          books.push(res.data.list[i])
-        }
-        this.setData({
-          bookList: books,
-          page: this.data.page + 1,
-          pageload: false,
-          isLoad:false,
-        });
+         this.setData({
+           searchTabs:res.data
+         })
       }
     })
 
+    this.searchBooks(this.data.currentAttr, this.data.page);
 
   },
 

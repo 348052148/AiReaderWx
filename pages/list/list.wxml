@@ -1,5 +1,11 @@
 <!--pages/list/list.wxml-->
-<scroll-view enable-back-to-top class='bookList' scroll-top="{{scrollTop}}"  scroll-y="true" style="height:{{winHeight}}rpx;overflow-anchor:true;" bindscrolltolower="loadmore">
+<scroll-view scroll-x="true"  scroll-left="0" enable-flex="true"  class="classify">
+  <view wx:for="{{searchTabs}}" wx:for-item="tab" bindtap="selectTab" data-tab="{{tab}}" data-index="{{index}}" class="{{tab.active? 'active':''}}">{{tab.title}}</view>
+</scroll-view>
+<scroll-view wx:if="{{classifys.length > 0}}" scroll-x="true" scroll-left="0" enable-flex="true"  class="classify">
+  <view wx:for="{{classifys}}" wx:for-item="classify" bindtap="selectClassify" data-index="{{index}}" data-classify="{{classify}}" class="{{classify.active? 'active':''}}">{{classify.title}}</view>
+</scroll-view>
+<scroll-view enable-back-to-top class='bookList' scroll-top="{{scrollTop}}"  scroll-y="true" style="height:{{winHeight - 80}}rpx;overflow-anchor:true;" bindscrolltolower="loadmore">
 
     <view wx:if="{{bookList.length > 0}}">
       <navigator hover-class="none" url='/pages/details/details?book_id={{book.book_id}}' class='book_item' wx:for="{{bookList}}" wx:key="{{index}}" wx:for-item="book">
@@ -12,8 +18,8 @@
         </view>
       </navigator>
     </view>
-    <view wx:else class="weui-loadmore weui-loadmore_line">
-        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+    <view wx:elif="{{!isLoad}}" class="weui-loadmore weui-loadmore_line">
+        <view  class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
     </view>
 
     <view wx:if="{{isLoad}}" class="weui-loadmore">

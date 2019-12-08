@@ -1,5 +1,27 @@
 /* pages/list/list.wxss */
 
+.classify {
+  display: flex;
+  white-space: nowrap;
+  background: #fff;
+  height: 80rpx;
+  border-bottom: 1px #eee solid;
+}
+
+.classify view{
+  margin-top: 15rpx;
+  margin-left: 10rpx;
+  height: 50rpx;
+  display: inline-block;
+  line-height: 50rpx;
+  font-size: 30rpx;
+  padding: 0 10rpx;
+}
+.active {
+  color: #ff6347;
+  /* border: 2rpx solid #ff6347; */
+  /* border-radius: 25rpx; */
+}
 
 .bookList {
   background: #fff;

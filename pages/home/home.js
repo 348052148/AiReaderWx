@@ -46,7 +46,7 @@ Page({
 
       //接口搜索
       wx.request({
-        url: api.book.bookMixedSearch('hot', this.data.page),
+        url: api.book.bookMixedSearch('all', this.data.page),
         success: res => {
           if (res.data.list.length > 0) {
             let books = this.data.bookList;
@@ -111,7 +111,7 @@ Page({
     })
 
     wx.request({
-      url: api.book.bookMixedSearch('hot', this.data.page),
+      url: api.book.bookMixedSearch('all', this.data.page),
       success: res => {
         let books = this.data.bookList;
         for (let i = 0; i < res.data.list.length; i++) {

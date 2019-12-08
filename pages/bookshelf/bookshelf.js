@@ -117,12 +117,9 @@ Page({
         this.setData({
           bookShelfData: bookshelfs
         });
-
-        wx.setStorageSync('bookShelfData', bookshelfs)
-
+        wx.setStorageSync('bookShelfData', bookshelfs);
         wx.hideLoading();
-
-      }
+      },
     })
 
     //如果书籍为空
