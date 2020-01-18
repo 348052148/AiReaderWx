@@ -26,6 +26,7 @@ App({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        console.log(res);
         wx.request({
           url: api.wechat.login(res.code),
           success: res => {
@@ -77,8 +78,9 @@ App({
             else {
               //登陆成功
               this.globalData.userInfo = res.data.data
+              console.log(res.data);
               //设置用户信息
-              wx.setStorageSync('loginInfo', res.data)
+              wx.setStorageSync('loginInfo', res.data.data)
             }
           }
         })

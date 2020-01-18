@@ -7,8 +7,7 @@
   </view>
 </view>
 
-<view class="searchfix">
-</view>
+<!-- <view class="searchfix"></view> -->
 
 <swiper class="bannar" indicator-dots="{{bannarInfo.indicatorDots}}"
   autoplay="{{bannarInfo.autoplay}}" interval="{{bannarInfo.interval}}" duration="{{bannarInfo.duration}}">

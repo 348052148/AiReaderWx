@@ -61,6 +61,7 @@
   height: 80rpx;
   line-height: 80rpx;
   display: block;
+  font-size: 32rpx;
 }
 .hotContainer .hotHead .hotTitle {
   margin-left: 2rpx;
@@ -71,7 +72,6 @@
 .hotContainer .hotHead .hotMore {
   padding-right: 20rpx;
   color: #cb1c36;
-  font-size: 32rpx;
   font-family:fantasy;
   float: right;
 }

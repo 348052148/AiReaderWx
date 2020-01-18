@@ -9,7 +9,7 @@
 .searchIcon {
   position: absolute;
   top: 50rpx;
-  left: 195rpx;
+  left: 160rpx;
   z-index: 20;
 }
 
@@ -60,7 +60,7 @@
 }
 
 .hot_refresh, .history_clear {
-  width: 20%;
+  width: 22%;
   color: #ff6347;
   text-align: right;
 }

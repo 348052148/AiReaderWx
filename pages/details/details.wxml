@@ -7,7 +7,7 @@
   <view class="bookInfo">
     <image src="{{STATIC_HOST}}book/image/{{bookInfo.book_id}}.jpeg"></image>
     <text class="bookTitle">{{bookInfo.title}}</text>
-    <text class="bookSite">{{bookInfo.author}}</text>
+    <text class="bookSite">作者：{{bookInfo.author}}</text>
     <view class="infoBtn">
       <navigator hover-class="none" url='/pages/reader/reader?book_id={{bookInfo.book_id}}&title={{bookInfo.title}}&cover={{bookInfo.cover}}&author={{bookInfo.author}}' class="startRead">开始阅读</navigator>
       <view bindtap='addShelf' class="addReader">{{addedShelf ? '已加入书架' : '加入书架'}}</view>

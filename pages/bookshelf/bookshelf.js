@@ -83,6 +83,7 @@ Page({
     console.log(bookMaps)
 
     let userInfo = util.getUserInfo();
+    console.log(userInfo);
     wx.request({
       url: api.bookshelf.getBooks(userInfo.user_id),
       success: (res) => {
@@ -121,11 +122,7 @@ Page({
         wx.hideLoading();
       },
     })
-
     //如果书籍为空
-   
-   
-    
   },
   onLoad: function () {
   },

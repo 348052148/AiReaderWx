@@ -24,14 +24,11 @@
 }
 
 .chapterLink {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 30rpx 0 80rpx 0;
+  height:155rpx;
 }
 
 .prev, .next {
-  width: 150rpx;
+  width: 200rpx;
   line-height: 60rpx;
   font-size: 15px;
   text-align: center;
@@ -62,7 +59,20 @@
   line-height: 85rpx;
   z-index: 10;
 }
+.menu_pn{
+  bottom:85rpx;
+  border-bottom: 1px solid #817E7E;
+  text-align: center;
+  height: 70rpx;
+  line-height: 70rpx;
 
+}
+.prev_next{
+  width: 50%;
+}
+.prev_s{
+  border-right: 1px solid #817E7E
+}
 .chapterContainer {
   width: 100%;
   position: fixed;
